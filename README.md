@@ -19,10 +19,10 @@ Dynamic memory allocation is the process of assigning the memory space during ru
 * The first part contains the meta information about the block( aka meta_block) and the second part is left to use for storing data.
 * Storing meta information about the block is vital and becomes handy when dealing with freeing the memory allocated.
 * These blocks are maintained in the order they are being allocated.
-* For this purpose, these blocks are made into a doubly linked list. 
+* For this purpose, these blocks are made into a doubly linked list.
 * Keeping the list of the blocks of free space and used space as a doubly linked list comes in handy when dealing with fragmentation.
-* The requested size is aligned to the multiple of 4 greater than or equal to the size. Handling the addresses becomes simpler when they are aligned. 
-* The system calls `sbrk()` and `brk()` are used to move the break of the heap.  
+* The requested size is aligned to the multiple of 4 greater than or equal to the size. Handling the addresses becomes simpler when they are aligned.
+* The system calls `sbrk()` and `brk()` are used to move the break of the heap.
 
 ### Malloc.c
 * ```malloc.c``` contains the structure ```meta_block``` which stores information about the memory block.
@@ -58,7 +58,7 @@ Dynamic memory allocation is the process of assigning the memory space during ru
 * If the memory block of the old address has at least the required size then it is returned as it is.
 * Then the next block is checked if it free and merged using `merge_block()`.
 * If the space in the block is more than required after merging, then it is split using `split_space()`.
-* If the next block is not free then new block is allocated using `malloc()`. 
+* If the next block is not free then new block is allocated using `malloc()`.
 * The data is then copied from the old location to the new location using `copy_data()`.
 * The pointer to the new location is returned.
 

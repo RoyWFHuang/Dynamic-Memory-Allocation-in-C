@@ -17,23 +17,21 @@ int main(){
     printf("\n\n");
 
     printf("Initializing first variable : ");
-    int *a = (int*)malloc(sizeof(int));
+    int *a = (int *)malloc(sizeof(int));
     *a = 5;
-    printf("%p -> %d \n\n",a,*a);
+    printf("%p -> %d \n\n", a, *a);
 
     printf("Initializing second variable : ");
-    int *b = (int*)malloc(sizeof(int));
+    int *b = (int *)malloc(sizeof(int));
     *b = 10;
-    printf("%p -> %d \n\n",b,*b);
-    
+    printf("%p -> %d \n\n", b, *b);
 
     free(a);
     printf("Freeing first variable and using that memory block again using malloc() for third variable: ");
-    int *c = (int*)malloc(sizeof(int));
-    printf("%p -> %d \n\n",c,*c);
-    
+    int *c = (int *)malloc(sizeof(int));
+    printf("%p -> %d \n\n", c, *c);
     printf("Initializing int array of size 5 using calloc() : ");
-    int *arr = (int*)calloc(sizeof(int),5);
+    int *arr = (int *)calloc(sizeof(int),5);
     printf("%p ->  ",arr);
     for(int i=0; i<5; i++){
         printf(" %d ", *(arr+i));
@@ -41,7 +39,7 @@ int main(){
     printf("\n\n");
 
     printf("Resizing it to size 10 using realloc(): ");
-    arr = (int*)realloc(arr, 10);
+    arr = (int *)realloc(arr, 10);
     printf("%p ->  ",arr);
     for(int i=0; i<10; i++){
         printf(" %d ", *(arr+i));

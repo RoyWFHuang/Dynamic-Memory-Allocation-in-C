@@ -118,7 +118,7 @@ void *malloc(size_t size)
 {
     meta_ptr block, last;
     size_t s;
-    s = allign4(size);
+    s = align4(size);
     if (base)
     {
         last = base;

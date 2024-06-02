@@ -58,7 +58,7 @@ void *realloc(void *p, size_t size)
         /* Aligning the requested size */
         s = align4(size);
         old_block = get_block_addr(p);
-        
+
         /*
          * s is the new alligned space.
          * old_block->size returns the size of the old memory block passes as an argument when realloc() is invoked
@@ -84,10 +84,9 @@ void *realloc(void *p, size_t size)
             else
             {
                 new_ptr = malloc(s);
-                
                 if (!new_ptr)
                     return NULL;
-                
+
                 new_block = get_block_addr(new_ptr);
                 copy_data(old_block, new_block);
                 
