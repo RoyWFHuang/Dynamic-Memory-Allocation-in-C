@@ -67,7 +67,7 @@ meta_ptr find_suitable_block(meta_ptr *last, size_t size)
 void split_space(meta_ptr block, size_t size)
 {
     meta_ptr new_block;
-    new_block = block->data + size;
+    new_block = (meta_ptr)(block->data + size);
     new_block->size = block->size - size - META_BLOCK_SIZE;
     new_block->next = block->next;
     new_block->free = 1;

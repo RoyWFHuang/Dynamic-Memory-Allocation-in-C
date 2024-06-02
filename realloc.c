@@ -19,8 +19,8 @@
 
 void copy_data(meta_ptr src, meta_ptr dest)
 {
-    int *src_data = src->data;
-    int *dest_data = dest->data;
+    int *src_data = (int *)src->data;
+    int *dest_data = (int *)dest->data;
     size_t i;
     for (i = 0; i * 4 < src->size && i * 4 < dest->size; i++)
     {
@@ -76,7 +76,7 @@ void *realloc(void *p, size_t size)
             if (old_block->next && old_block->next->free && (old_block->size + old_block->next->size + META_BLOCK_SIZE) >= s)
             {
                 merge_blocks(old_block);
-                if (old_block - s >= (META_BLOCK_SIZE + 4))
+                if ((intptr_t)old_block - s >= (META_BLOCK_SIZE + 4))
                 {
                     split_space(old_block, s);
                 }
