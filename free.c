@@ -1,11 +1,12 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
-#include "malloc.c"
+#include "include/malloc.h"
 #include "include/free.h"
+#include "include/metadata.h"
 
 /*
- * This file contains the implementaion of the function free()
+ * This file contains the implementaion of the function my_free()
  * For the details on few data structs such as meta_block and meta_ptr refer to the file malloc.c
  */
 
@@ -36,7 +37,7 @@ meta_ptr get_block_addr(void *p)
 }
 
 /*
- * This function checks if the given pointer address is indeed created by invoking malloc() or not.
+ * This function checks if the given pointer address is indeed created by invoking my_malloc() or not.
  * We use the field ptr in the meta_block() to check if the passed address is same as the one present in the meta_block()
  */
 int is_addr_valid(void *p)
@@ -58,7 +59,7 @@ int is_addr_valid(void *p)
  * And finally if the freed block is at the end of the linkedlist, it is removed from the linkedlist and the break line
  * of the heap is set to the corresponding last address in the linkedlist using the syscall brk()
  */
-void free(void *ptr)
+void my_free(void *ptr)
 {
     if (is_addr_valid(ptr))
     {

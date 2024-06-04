@@ -1,15 +1,14 @@
-#include<stdio.h>
-#include"include/calloc.h"
-#include"include/malloc.h"
-#include"include/realloc.h"
-#include"include/free.h"
-
+#include <stdio.h>
+#include "include/calloc.h"
+#include "include/malloc.h"
+#include "include/realloc.h"
+#include "include/free.h"
 /*
  * Testing code to test all the functions implemented.
- * First two new variables are created and allocated space using malloc()
- * Then the first varaible is freed and malloc() is called again to show that space can be reused.
- * Then calloc() is used to allocate an int array of size 5. Initially the values will be set to 0 by calloc();
- * Then the array is resized to size 10 using realloc()
+ * First two new variables are created and allocated space using my_malloc()
+ * Then the first varaible is freed and my_malloc() is called again to show that space can be reused.
+ * Then my_calloc() is used to allocate an int array of size 5. Initially the values will be set to 0 by my_calloc();
+ * Then the array is resized to size 10 using my_realloc()
  */
 
 int main(){

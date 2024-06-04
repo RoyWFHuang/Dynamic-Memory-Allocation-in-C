@@ -1,12 +1,12 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
-#include "malloc.c"
-#include "free.c"
+#include "include/malloc.h"
+#include "include/free.h"
 #include "include/realloc.h"
 
 /*
- * This file contains the implementation of realloc()
+ * This file contains the implementation of my_realloc()
  * To know about meta_ptr, META_BLOCK_SIZE and other similar declarations refer the file malloc.c
  * reallco() can be used to increase or decrease the size of a pre-existing memory block.
  * The values in the pre-existing memory block will be copied in the new-block formed.
@@ -29,9 +29,9 @@ void copy_data(meta_ptr src, meta_ptr dest)
 }
 
 /*
- * realloc() takes two arguments: pointer pointing to old memory location
+ * my_realloc() takes two arguments: pointer pointing to old memory location
  * and the size of the new memory block to be allocated.
- * If the pointer given as argument is NULL then malloc() is used to create a momory allocation and the new pointer is returned.
+ * If the pointer given as argument is NULL then my_malloc() is used to create a momory allocation and the new pointer is returned.
  * The function first checks if the the pointer is a valid memory address,
  * then if the old_block has enough memory then it is returned as it is.
  * If the memory is no sufficient in the old_block then the next block is checked if its free and fused if possible.
@@ -40,7 +40,7 @@ void copy_data(meta_ptr src, meta_ptr dest)
  * Finally the pointer to the new memory address is returned.
  */
 
-void *realloc(void *p, size_t size)
+void *my_realloc(void *p, size_t size)
 {
     size_t s;
     meta_ptr new_block, old_block;
@@ -49,7 +49,7 @@ void *realloc(void *p, size_t size)
     /* Checking if the passed pointer is NULL */
     if (!p)
     {
-        return malloc(size);
+        return my_malloc(size);
     }
 
     /* Checking if the passed pointer is a valid memory address or not */
@@ -61,7 +61,7 @@ void *realloc(void *p, size_t size)
 
         /*
          * s is the new alligned space.
-         * old_block->size returns the size of the old memory block passes as an argument when realloc() is invoked
+         * old_block->size returns the size of the old memory block passes as an argument when my_realloc() is invoked
          * META_BLOCK_SIZE is the size of the block storing the meta information of that memory block.
          */
         if (old_block->size >= s)
@@ -83,14 +83,13 @@ void *realloc(void *p, size_t size)
             }
             else
             {
-                new_ptr = malloc(s);
+                new_ptr = my_malloc(s);
                 if (!new_ptr)
                     return NULL;
 
                 new_block = get_block_addr(new_ptr);
                 copy_data(old_block, new_block);
-                
-                free(p);
+                my_free(p);
                 return new_ptr;
             }
         }

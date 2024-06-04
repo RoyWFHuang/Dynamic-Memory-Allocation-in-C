@@ -114,7 +114,7 @@ meta_ptr extend_heap(meta_ptr last, size_t size)
  * If there are no elements in the linked-list then it asks the heap to allocate memory block
  * Finally it return the address from where the data can be stored.
  */
-void *malloc(size_t size)
+void *my_malloc(size_t size)
 {
     meta_ptr block, last;
     size_t s;
