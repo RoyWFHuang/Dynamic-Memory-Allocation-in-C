@@ -4,7 +4,13 @@
 #include "include/malloc.h"
 #include "include/free.h"
 #include "include/realloc.h"
+#include "include/metadata.h"
+#include "include/memlib.h"
 
+extern void split_space(meta_ptr block, size_t size);
+extern meta_ptr merge_blocks(meta_ptr block);
+extern int is_addr_valid(void *p);
+extern meta_ptr get_block_addr(void *p);
 /*
  * This file contains the implementation of my_realloc()
  * To know about meta_ptr, META_BLOCK_SIZE and other similar declarations refer the file malloc.c
@@ -89,6 +95,7 @@ void *my_realloc(void *p, size_t size)
 
                 new_block = get_block_addr(new_ptr);
                 copy_data(old_block, new_block);
+                new_block->size = size;
                 my_free(p);
                 return new_ptr;
             }

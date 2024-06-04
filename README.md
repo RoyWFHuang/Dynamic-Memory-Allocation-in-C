@@ -1,4 +1,4 @@
-# Implementing malloc(), calloc(), realloc(), free() in c
+# Implementing my_malloc(), my_calloc(), my_realloc(), my_free() in c
 Dynamic memory allocation is the process of assigning the memory space during runtime of the program. This is implemented in C as the functions malloc, calloc, realloc, and free from stdlib. malloc allocates a single block of memory of specified size and returns the pointer to the allocated block. calloc works similarly to malloc but initializes the allocated memory to zero. realloc is used to change the size of an allocated block of memory. Free deallocates memory associated with a pointer.
 
 ### Contents
@@ -36,7 +36,7 @@ Dynamic memory allocation is the process of assigning the memory space during ru
 * The function ```find_suitable_block()``` when invoked finds if there exist a free block of memory with aleast the required amount of space which is free by going through the linked list.
 * The function ```split_space()``` when invoked splits the memory block into two if it contains enough space that can be used to store data.
 * The function ```extend_heap()``` when invoked extends the heap and adds a new memory block to the linked list.
-* When the function ```malloc()``` is called:
+* When the function ```my_malloc()``` is called:
   * Creates a new block by invoking ```extend_heap()``` if the ```base``` is ```NULL```.
   * Else it iterates through the linkedlist to find if any suitable block(block with aleast requested size).
   * If a suitable block is found, it is returned.
@@ -44,13 +44,13 @@ Dynamic memory allocation is the process of assigning the memory space during ru
   * It also check if the block found in the linkedlist has enough extra space to be splited. In this case, ```split_space()``` is invoked.
 
 ### Free.c
-* The function `free()` first checks if the pointer passed as argument is a valid pointer or not (i.e., created using malloc()) using `is_addr_valid()`.
+* The function `my_free()` first checks if the pointer passed as argument is a valid pointer or not (i.e., created using my_malloc()) using `is_addr_valid()`.
 * Then using `get_block_addr()` the address of the `meta_block` of that corresponding memory location can be found.
 * The block to be freed is merged with the previous or the next memory block it any of it is free using `merge_block()`.
 * If the block to be freed is at the end of the linked list, then it is removed from the linkedlist and the break of the heap is modified using `brk()`.
 
 ### Calloc.c
-* First `malloc()` is used to allocate the required amount of space.
+* First `my_malloc()` is used to allocate the required amount of space.
 * Then by iterating through every byte the value is set to 0.
 
 ### Realloc.c
@@ -58,16 +58,16 @@ Dynamic memory allocation is the process of assigning the memory space during ru
 * If the memory block of the old address has at least the required size then it is returned as it is.
 * Then the next block is checked if it free and merged using `merge_block()`.
 * If the space in the block is more than required after merging, then it is split using `split_space()`.
-* If the next block is not free then new block is allocated using `malloc()`.
+* If the next block is not free then new block is allocated using `my_malloc()`.
 * The data is then copied from the old location to the new location using `copy_data()`.
 * The pointer to the new location is returned.
 
 ### Main.c
  * Testing code to test all the functions implemented.
- * First two new variables are created and allocated space using `malloc()`.
- * Then the first varaible is freed and `malloc()` is called again to show that space can be reused.
- * Then `calloc()` is used to allocate an int array of size 5. Initially the values will be set to 0 by `calloc()`;
- * Then the array is resized to size 10 using `realloc()`.
+ * First two new variables are created and allocated space using `my_malloc()`.
+ * Then the first varaible is freed and `my_malloc()` is called again to show that space can be reused.
+ * Then `my_calloc()` is used to allocate an int array of size 5. Initially the values will be set to 0 by `my_calloc()`;
+ * Then the array is resized to size 10 using `my_realloc()`.
 
 P.S: Please go through the comments in the code for more techincal details on the functions.
 

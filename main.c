@@ -3,6 +3,18 @@
 #include "include/malloc.h"
 #include "include/realloc.h"
 #include "include/free.h"
+#include "include/metadata.h"
+
+#ifdef MY_MM
+
+
+#define malloc my_malloc
+#define free my_free
+#define calloc my_calloc
+#define realloc my_realloc
+#else
+#include <stdlib.h>
+#endif
 /*
  * Testing code to test all the functions implemented.
  * First two new variables are created and allocated space using my_malloc()

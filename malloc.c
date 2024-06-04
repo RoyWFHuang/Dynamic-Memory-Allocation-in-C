@@ -1,8 +1,10 @@
+#include <inttypes.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
 #include "include/malloc.h"
-
+#include "include/metadata.h"
+#include "include/memlib.h"
 /*
  * This implementation of malloc is based on first-fit style.
  * meta_block is a struct to store the meta information about every chuck of memory being allocated.
@@ -11,13 +13,13 @@
  * Size of meta_block is considered to be 20 (4 bytes for each of the  variables).
  */
 
-#define META_BLOCK_SIZE 20
+
 
 /* The macro align4 is used to set the requested size to multiple of four greater than requested size */
-#define align4(x) (((((x)-1) >> 2) << 2) + 4)
+
 
 /* meta_ptr is a pointer of type meta_block, it is type defined for simplicity and to avoid confusion */
-typedef struct meta_block *meta_ptr;
+
 
 /* base stores the head of the linked list */
 void *base = NULL;
@@ -33,15 +35,7 @@ void *base = NULL;
  * The next and prev pointers points to the block in the
  * doubly linked list present next and previous to the curr block.
  */
-struct meta_block
-{
-    int free;
-    size_t size;
-    meta_ptr next;
-    meta_ptr prev;
-    void *ptr;
-    char data[1];
-};
+
 
 /*
  * The find_suitable_block function traverses through the linked list
@@ -57,7 +51,7 @@ meta_ptr find_suitable_block(meta_ptr *last, size_t size)
         *last = b;
         b = b->next;
     }
-    return last;
+    return b;
 }
 
 /*

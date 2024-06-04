@@ -5,6 +5,7 @@
 #include "include/free.h"
 #include "include/metadata.h"
 
+extern void *base;
 /*
  * This file contains the implementaion of the function my_free()
  * For the details on few data structs such as meta_block and meta_ptr refer to the file malloc.c
